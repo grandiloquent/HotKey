@@ -23,9 +23,9 @@ void clearDesktop() {
   }
 }
 
-void createClangFiles(){
+void createClangFiles(string fileName){
   std::ofstream source;
-  string fileName{"files"};
+   
   struct stat s;
   if (stat((fileName + ".hpp").c_str(), &s) != 0 || !S_ISREG(s.st_mode)) {
     source.open(fileName + ".hpp");

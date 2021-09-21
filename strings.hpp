@@ -35,4 +35,10 @@ string Utf8ToGbk(const char *src_str)
   if (szGBK) delete[] szGBK;
   return strTemp;
 }
+char *gbk(const wchar_t *wp) {
+    int nMbyteLen = WideCharToMultiByte(CP_ACP, 0, wp, -1, NULL, 0, NULL, NULL);
+    char *buffer = (char *)malloc(nMbyteLen + 1);
+    WideCharToMultiByte(CP_ACP, 0, wp, -1, buffer, nMbyteLen, NULL, NULL);
+    return buffer;
+}
 #endif
