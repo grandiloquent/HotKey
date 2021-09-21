@@ -50,9 +50,9 @@ wstring string2wstring(string str)
     delete[] buffer;  
     return result;  
 }  
-
+ 
 void readFromPipe(HANDLE hProcess, HANDLE hRead,
-                  std::function<void(const std::wstring&)> handle) {
+                  std::function<void(std::wstring&)> handle) {
   DWORD dwAvail, dwRead;//, dwWritten;
   const auto size=4096;
   auto chBuf= std::make_unique<char[]>(size);
@@ -79,11 +79,11 @@ void readFromPipe(HANDLE hProcess, HANDLE hRead,
     //if (!bSuccess) break;
   }
 
-  auto result=string2wstring(v);
+  auto result = string2wstring(v);
 
   if (handle != nullptr) handle(result);
 }
-int exec(std::wstring& cmd,std::function<void(const std::wstring&)> handle=nullptr) {
+int exec(std::wstring& cmd,std::function<void(  std::wstring&)> handle=nullptr) {
   STARTUPINFOW si;
   PROCESS_INFORMATION pi;
 
