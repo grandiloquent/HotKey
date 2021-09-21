@@ -16,6 +16,11 @@
 #include "processes.hpp"
 #include "files.hpp"
 #include "baidu.hpp"
+#include "git.hpp"
+#include "https.hpp"
+//#include "rapidjson/document.h"
+//#include "sion.h"
+
 
 using namespace std;
 
@@ -29,11 +34,9 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
        
         break;
 
-      // case VK_F11:
-      //   break;
-
-      // case VK_F12:
-      //   break;
+      case 57: // 9
+        gitPush();
+        break;
     }
   }
   return CallNextHookEx(NULL, nCode, wParam, lParam);
@@ -42,14 +45,10 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 
 int main(int argc, char const* argv[]) {
   //setlocale(LC_ALL, "zh-CN");
- 
-  chdir("C:\\Users\\psycho\\Desktop\\Key");
-  system("git add .");
-  wstring git = L"git commit -m ";
-  git += getString();
-  system(gbk(git.c_str()));
-  system("git push");
- 
+  //createClangFiles("https");
+
+  cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
+
   MSG msg;
 
   SetWindowsHookEx(WH_KEYBOARD_LL, HookProc, GetModuleHandle(NULL),0);  // Setup keyboard Hook
