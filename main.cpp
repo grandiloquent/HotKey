@@ -1,4 +1,4 @@
-// --std=c++20
+// --std=c++20 -lws2_32
 
 #include <Windows.h>
 #include <sys/stat.h>
@@ -19,7 +19,8 @@
 #include "git.hpp"
 #include "https.hpp"
 //#include "rapidjson/document.h"
-//#include "sion.h"
+#define SION_DISABLE_SSL
+#include "sion.h"
 
 using namespace std;
 
@@ -50,19 +51,32 @@ int main(int argc, char const* argv[]) {
   char szUTF8[32];
   int nMbyteLen = WideCharToMultiByte(CP_UTF8, 0, wp, -1, NULL, 0, NULL, NULL);
   WideCharToMultiByte(CP_UTF8, 0, wp, -1, szUTF8, nMbyteLen, NULL, NULL);
-string encode=szUTF8;
-cout << urlencode( encode) << endl;
+  string encode = szUTF8;
 
-cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
+  string uri =
+      "http://translate.google.cn/translate_a/"
+      "single?client=gtx&sl=auto&tl=%s&dt=t&dt=bd&ie=UTF-8&oe=UTF-8&dj=1&"
+      "source=icon&q=" +
+      urlencode(encode);
+  auto res =
+      sion::Request()
+          .SetUrl(uri)
+          .SetHttpMethod(sion::Method::Get)
+          .SetHeader("Connection", "close")
+          .SetHeader("Accept", "application/json, text/javascript, */*; q=0.01")
+          .SetHeader("User-Agent", "Mozilla/4.0")
+          .Send();
+  cout << res.Body() << endl;
+  cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
 
-MSG msg;
+  MSG msg;
 
-SetWindowsHookEx(WH_KEYBOARD_LL, HookProc, GetModuleHandle(NULL),
-                 0);  // Setup keyboard Hook
+  SetWindowsHookEx(WH_KEYBOARD_LL, HookProc, GetModuleHandle(NULL),
+                   0);  // Setup keyboard Hook
 
-while (GetMessage(&msg, 0, 0, 0)) {
-  TranslateMessage(&msg);
-  DispatchMessage(&msg);
+  while (GetMessage(&msg, 0, 0, 0)) {
+    TranslateMessage(&msg);
+    DispatchMessage(&msg);
   }
   return 0;
 }
