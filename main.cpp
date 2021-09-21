@@ -17,7 +17,8 @@
 #include "baidu.hpp"
 #include "files.hpp"
 #include "git.hpp"
-// =#include "https.hpp"
+#include "https.hpp"
+#include "translates.hpp"
 //#include "rapidjson/document.h"
 
 
@@ -45,6 +46,7 @@ int main(int argc, char const* argv[]) {
 
   // createClangFiles("translates");
 
+  google();
   cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
 
   MSG msg;
