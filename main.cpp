@@ -17,7 +17,7 @@
 #include "baidu.hpp"
 #include "files.hpp"
 #include "git.hpp"
-#include "https.hpp"
+// =#include "https.hpp"
 //#include "rapidjson/document.h"
 
 
@@ -34,7 +34,7 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
         break;
 
       case 57:  // 9
-        thread t([] { gitPush(); });
+        gitPush();
         break;
     }
   }
@@ -42,7 +42,7 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 }
 
 int main(int argc, char const* argv[]) {
-  // setlocale(LC_ALL, "zh-CN");
+
   // createClangFiles("translates");
 
   cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
