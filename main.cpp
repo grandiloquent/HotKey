@@ -43,9 +43,9 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 
 int main(int argc, char const* argv[]) {
   // setlocale(LC_ALL, "zh-CN");
-   createClangFiles("translates");
+  // createClangFiles("translates");
 
- 
+  cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
 
   MSG msg;
 

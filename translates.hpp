@@ -26,6 +26,6 @@ void google(){
           .SetHeader("User-Agent", "Mozilla/4.0")
           .Send();
   cout << res.Body().size() << endl;
-  cout << Utf8ToGbk("ALT+9 同步GitHub") << endl;
+  
 }
 #endif
