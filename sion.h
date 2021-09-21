@@ -225,7 +225,7 @@ namespace sion
         hints.ai_family = AF_INET; // ipv4
         if ((err = getaddrinfo(hostname.c_str(), NULL, &hints, &res)) != 0)
         {
-            Throw<std::runtime_error>("错误" + std::to_string(err) + String(gai_strerror(err)));
+            Throw<std::runtime_error>("Error" + std::to_string(err) + String(gai_strerror(err)));
         }
         addr.s_addr = ((sockaddr_in*)(res->ai_addr))->sin_addr.s_addr;
         char str[INET_ADDRSTRLEN];
@@ -637,6 +637,7 @@ namespace sion
 #ifdef _WIN32
                 WSACleanup();
 #endif
+                std::cout<<21312321<<Utf8ToGbk(e.what())<<std::endl;
                 throw std::runtime_error(e.what());
             }
             throw std::runtime_error("");
